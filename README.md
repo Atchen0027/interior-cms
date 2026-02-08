@@ -1,61 +1,125 @@
-# 🚀 Getting started with Strapi
+# Interior CMS - Strapi
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+CMS para gestionar el contenido de la landing page de diseño de interiores.
 
-### `develop`
+## 🚀 Despliegue en Render
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+### Opción 1: Despliegue automático con render.yaml
 
-```
+1. **Sube el proyecto a GitHub**
+
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git remote add origin https://github.com/TU_USUARIO/interior-cms.git
+   git push -u origin main
+   ```
+
+2. **Conecta con Render**
+
+   - Ve a [Render Dashboard](https://dashboard.render.com/)
+   - Click en "New" → "Blueprint"
+   - Conecta tu repositorio de GitHub
+   - Render detectará automáticamente el archivo `render.yaml`
+   - Click en "Apply" para crear el servicio y la base de datos
+
+3. **Espera el despliegue**
+
+   - Render creará automáticamente:
+     - Base de datos PostgreSQL
+     - Web Service con Strapi
+     - Todas las variables de entorno necesarias
+
+4. **Accede al panel de administración**
+   - URL: `https://interior-cms.onrender.com/admin`
+   - Crea tu primer usuario administrador
+
+### Opción 2: Despliegue manual
+
+1. **Crea la base de datos PostgreSQL**
+
+   - En Render Dashboard → "New" → "PostgreSQL"
+   - Nombre: `interior-cms-db`
+   - Plan: Free
+   - Copia la "Internal Database URL"
+
+2. **Crea el Web Service**
+
+   - En Render Dashboard → "New" → "Web Service"
+   - Conecta tu repositorio
+   - Configuración:
+     - **Name**: interior-cms
+     - **Environment**: Node
+     - **Region**: Oregon (o el más cercano)
+     - **Branch**: main
+     - **Build Command**: `npm install && npm run build`
+     - **Start Command**: `npm run start`
+     - **Plan**: Free
+
+3. **Configura las variables de entorno**
+
+   En la sección "Environment Variables", añade:
+
+   ```
+   NODE_ENV=production
+   DATABASE_CLIENT=postgres
+   DATABASE_URL=[Pega aquí la Internal Database URL]
+   DATABASE_SSL=true
+   DATABASE_SSL_REJECT_UNAUTHORIZED=false
+   APP_KEYS=[Genera un string aleatorio largo]
+   API_TOKEN_SALT=[Genera un string aleatorio largo]
+   ADMIN_JWT_SECRET=[Genera un string aleatorio largo]
+   TRANSFER_TOKEN_SALT=[Genera un string aleatorio largo]
+   JWT_SECRET=[Genera un string aleatorio largo]
+   ```
+
+   Para generar strings aleatorios seguros, usa:
+
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+   ```
+
+4. **Despliega**
+   - Click en "Create Web Service"
+   - Espera a que termine el build (5-10 minutos)
+
+## 🔧 Desarrollo local
+
+```bash
+# Instalar dependencias
+npm install
+
+# Iniciar en modo desarrollo
 npm run develop
-# or
-yarn develop
+
+# Acceder al panel admin
+# http://localhost:1337/admin
 ```
 
-### `start`
+## 📝 Uso
 
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
+Una vez desplegado:
 
-```
-npm run start
-# or
-yarn start
-```
+1. Accede a `/admin` y crea tu usuario administrador
+2. Crea los "Content Types" necesarios (Proyectos, Servicios, etc.)
+3. Añade contenido desde el panel
+4. Consume la API desde tu frontend:
+   ```javascript
+   // Ejemplo
+   const response = await fetch(
+     "https://interior-cms.onrender.com/api/proyectos",
+   );
+   const data = await response.json();
+   ```
 
-### `build`
+## 🔐 Seguridad
 
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
+- Cambia todas las claves secretas en producción
+- Configura CORS en `config/middlewares.ts` para permitir solo tu dominio
+- Configura los permisos de API en Settings → Users & Permissions Plugin
 
-```
-npm run build
-# or
-yarn build
-```
+## 📚 Documentación
 
-## ⚙️ Deployment
-
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
-
-```
-yarn strapi deploy
-```
-
-## 📚 Learn more
-
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
-
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
-
-## ✨ Community
-
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
-
----
-
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+- [Strapi Documentation](https://docs.strapi.io)
+- [Render Documentation](https://render.com/docs)
