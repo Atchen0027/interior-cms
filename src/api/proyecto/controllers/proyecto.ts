@@ -1,3 +1,3 @@
 import { factories } from "@strapi/strapi";
 
-export default factories.createCoreController("api::proyecto.proyecto");
+export default factories.createCoreController("api::proyecto.proyecto" as any);
