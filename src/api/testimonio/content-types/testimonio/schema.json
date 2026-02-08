@@ -32,12 +32,6 @@
       "min": 1,
       "max": 5
     },
-    "proyecto_relacionado": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::proyecto.proyecto",
-      "inversedBy": "testimonios"
-    },
     "sitio_web": {
       "type": "enumeration",
       "enum": ["interior-landing", "otro-cliente-1", "otro-cliente-2"],
