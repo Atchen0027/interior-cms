@@ -18,6 +18,10 @@
       "type": "text",
       "required": true
     },
+    "orden": {
+      "type": "integer",
+      "default": 0
+    },
     "sitio_web": {
       "type": "enumeration",
       "enum": ["interior-landing", "otro-cliente"],
