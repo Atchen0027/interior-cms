@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "proyectos",
+  "info": {
+    "singularName": "proyecto",
+    "pluralName": "proyectos",
+    "displayName": "Proyecto"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text",
+      "required": true
+    },
+    "categoria": {
+      "type": "string",
+      "required": true
+    },
+    "imagen_principal": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "sitio_web": {
+      "type": "enumeration",
+      "enum": ["interior-landing", "otro-cliente"],
+      "default": "interior-landing"
+    }
+  }
+}

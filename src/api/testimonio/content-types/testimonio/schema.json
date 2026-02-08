@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "testimonios",
+  "info": {
+    "singularName": "testimonio",
+    "pluralName": "testimonios",
+    "displayName": "Testimonio"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "nombre_cliente": {
+      "type": "string",
+      "required": true
+    },
+    "comentario": {
+      "type": "text",
+      "required": true
+    },
+    "calificacion": {
+      "type": "integer",
+      "min": 1,
+      "max": 5
+    },
+    "sitio_web": {
+      "type": "enumeration",
+      "enum": ["interior-landing", "otro-cliente"],
+      "default": "interior-landing"
+    }
+  }
+}

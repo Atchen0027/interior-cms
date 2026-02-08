@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "servicios",
+  "info": {
+    "singularName": "servicio",
+    "pluralName": "servicios",
+    "displayName": "Servicio"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text",
+      "required": true
+    },
+    "sitio_web": {
+      "type": "enumeration",
+      "enum": ["interior-landing", "otro-cliente"],
+      "default": "interior-landing"
+    }
+  }
+}
